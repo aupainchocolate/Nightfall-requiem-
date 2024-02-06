@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
@@ -17,15 +17,15 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-        // Horizontal movement
+        //Horizontal movement
         float moveInput = Input.GetAxis("Horizontal");
         Vector2 moveVelocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         rb.velocity = moveVelocity;
 
-        // Check if the character is grounded
+        //Check if the player is grounded
         isGrounded = Physics2D.OverlapCircle(transform.position, 0.2f, LayerMask.GetMask("Ground"));
 
-        // Jumping
+        //Jumping
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
