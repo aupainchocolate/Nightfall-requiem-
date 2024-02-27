@@ -301,6 +301,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  groundCheckPosition: {fileID: 0}
 --- !u!114 &226780801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,7 +681,7 @@ GameObject:
   - component: {fileID: 1257233048}
   - component: {fileID: 1257233047}
   - component: {fileID: 1257233049}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: grasstester (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -810,7 +811,7 @@ GameObject:
   - component: {fileID: 1515174375}
   - component: {fileID: 1515174374}
   - component: {fileID: 1515174373}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: grasstester (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

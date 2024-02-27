@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+  public PowerupEffect powerupEffect;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Destroy(gameObject);
+        powerupEffect.Apply(collision.gameObject);
     }
 }
