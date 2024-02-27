@@ -461,6 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fea3d0fc0435464c8af2497f229d6ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAmount: 10
 --- !u!1 &1058858635
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,7 +743,7 @@ Transform:
   m_GameObject: {fileID: 1257233046}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.14, y: -2.61, z: 0}
+  m_LocalPosition: {x: -2.72, y: -2.56, z: 0}
   m_LocalScale: {x: 3.1481798, y: 0.416677, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
