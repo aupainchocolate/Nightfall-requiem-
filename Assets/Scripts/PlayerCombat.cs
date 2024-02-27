@@ -6,9 +6,11 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
 
+    public Animator animator;
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayer;
+    public int attackDamage= 40;
 
     void Update()
     {
@@ -21,7 +23,7 @@ public class PlayerCombat : MonoBehaviour
     void Attack()
     {
         // Play an attack animation
-
+        animator.SetTrigger("Attack");
 
         // Detect enemies in range of attack
        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
@@ -29,7 +31,10 @@ public class PlayerCombat : MonoBehaviour
         // Damage enemies
         foreach(Collider2D enemy in hitEnemies)
         {
+            enemy.GetComponent<EnemyScript>().TakeDamage(attackDamage);
             Debug.Log("Hit" + enemy.name);
+
+            //EnemyScript har döpts om till EnemyMovement
         }
     }
 
