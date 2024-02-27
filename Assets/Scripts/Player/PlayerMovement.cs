@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float jumpForce = 10f;
+    public float jumpForce = 100f;
 
     private Rigidbody2D rb;
     private bool isGrounded;
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.2f;
+    public LayerMask groundLayer;
 
     [SerializeField] Transform groundCheckPosition;
 
@@ -24,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         //Jumping
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            Debug.Log("Han borde hoppa för fan!");
+            Debug.Log("Han borde hoppa fï¿½r fan!");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
         //Horizontal movement
@@ -32,9 +35,19 @@ public class PlayerMovement : MonoBehaviour
         Vector2 moveVelocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         rb.velocity = moveVelocity;
 
-        //Check if the player is grounded
-        isGrounded = Physics2D.OverlapCircle(groundCheckPosition.position, 0.2f, LayerMask.GetMask("Ground"));
+        // Check if the player is grounded
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        
+        // Jumping
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
 }
