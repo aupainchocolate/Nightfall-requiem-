@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 100f;
 
     private Rigidbody2D rb;
-    private bool isGrounded;
+    [SerializeField] bool isGrounded;
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
@@ -41,11 +41,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //Jumping
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
         //Horizontal movement
         float moveInput = Input.GetAxis("Horizontal");
         Vector2 moveVelocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
@@ -57,7 +52,8 @@ public class PlayerMovement : MonoBehaviour
         // Jumping
         if (Input.GetKeyDown(KeyCode.W) && isGrounded)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            Debug.Log("dennis suger");
+            rb.AddForce(transform.up * jumpForce);
         }
 
         // Detect and store horizontal player input   
