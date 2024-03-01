@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25e6420ebd156748ac272187c7acb32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!114 &46732806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +170,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef9ba1a02b153547a8baea3e316e3ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  maxHealth: 100
 --- !u!50 &46732807
 Rigidbody2D:
   serializedVersion: 4
@@ -253,6 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907fbe23f9e79e5419cf03e5dc676cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterHealth: {fileID: 0}
+  damage: 2
 --- !u!212 &46732810
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -512,7 +517,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -602,8 +607,6 @@ GameObject:
   - component: {fileID: 226780805}
   - component: {fileID: 226780804}
   - component: {fileID: 226780806}
-  - component: {fileID: 226780808}
-  - component: {fileID: 226780807}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -629,7 +632,7 @@ MonoBehaviour:
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   groundCheckPosition: {fileID: 0}
 --- !u!114 &226780801
 MonoBehaviour:
@@ -738,7 +741,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &226780805
 BoxCollider2D:
   m_ObjectHideFlags: 0

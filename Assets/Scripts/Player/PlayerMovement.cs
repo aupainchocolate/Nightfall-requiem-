@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    #region Gameplay properties
+
+    // Horizontal player keyboard input
+    //  -1 = Left
+    //   0 = No input
+    //   1 = Right
+    private float playerInput = 0;
+    public float moveSpeed = 10f;
     public float jumpForce = 100f;
 
     private Rigidbody2D rb;
@@ -13,21 +20,30 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
 
-    [SerializeField] Transform groundCheckPosition;
+    // Horizontal player speed
+    [SerializeField] private float speed = 250;
 
+    #endregion
+
+    #region Initialisation methods
+
+    // Initialises this component
+    // (NB: Is called automatically before the first frame update)
     void Start()
     {
+        // Get component references
         rb = GetComponent<Rigidbody2D>();
-        isGrounded = true;
     }
+
+    #endregion
+
+    #region Gameplay methods
 
     void Update()
     {
-        Debug.Log(isGrounded);
         //Jumping
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            Debug.Log("Han borde hoppa f�r fan!");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
         //Horizontal movement
@@ -39,15 +55,53 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         // Jumping
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
+
+        // Detect and store horizontal player input   
+        playerInput = Input.GetAxisRaw("Horizontal");
+
+        // NB: Here, you might want to set the player's animation,
+        // e.g. idle or walking
+
+        // Swap the player sprite scale to face the movement direction
+        SwapSprite();
     }
 
-    void OnDrawGizmosSelected()
+    // Swap the player sprite scale to face the movement direction
+    void SwapSprite()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        // Right
+        if (playerInput > 0)
+        {
+            transform.localScale = new Vector3(
+                Mathf.Abs(transform.localScale.x),
+                transform.localScale.y,
+                transform.localScale.z
+            );
+        }
+        // Left
+        else if (playerInput < 0)
+        {
+            transform.localScale = new Vector3(
+                -1 * Mathf.Abs(transform.localScale.x),
+                transform.localScale.y,
+                transform.localScale.z
+            );
+        }
     }
+
+    // Is called automatically every physics step
+    void FixedUpdate()
+    {
+        // Move the player horizontally
+        rb.velocity = new Vector2(
+            playerInput * speed * Time.fixedDeltaTime,
+            0
+        );
+    }
+
+    #endregion
 }
