@@ -602,6 +602,8 @@ GameObject:
   - component: {fileID: 226780805}
   - component: {fileID: 226780804}
   - component: {fileID: 226780806}
+  - component: {fileID: 226780808}
+  - component: {fileID: 226780807}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1125,8 +1127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef9ba1a02b153547a8baea3e316e3ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  groundDetection: {fileID: 0}
+  animator: {fileID: 0}
+  maxHealth: 100
 --- !u!1 &1257233046
 GameObject:
   m_ObjectHideFlags: 0
