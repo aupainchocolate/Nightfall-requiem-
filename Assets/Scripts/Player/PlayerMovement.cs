@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Get component references
         rb = GetComponent<Rigidbody2D>();
+        health = MaxHealth;
     }
 
     #endregion
@@ -41,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+      
         //Jumping
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -52,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = moveVelocity;
 
         // Check if the player is grounded
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+      isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         // Jumping
         if (Input.GetKeyDown(KeyCode.W) && isGrounded)
@@ -103,5 +106,49 @@ public class PlayerMovement : MonoBehaviour
         );
     }
 
+    #endregion
+
+    #region PlayerHealth
+   
+    //keeps track of player's current health
+    public int health;
+
+    // How much health you have when you have full health
+    public int MaxHealth = 10;
+
+    // Start is called before the first frame update
+
+
+    //Will be called everytime player takes damage
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+        if (health < 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    #endregion
+
+    #region EnemyDamaging
+
+    //lets the damaging script know where to find the script in unity
+    public PlayerMovement playerMovement;
+    //allows us to set different values to each monster
+    public int damage = 2;
+
+    //is called whenever something enters enemy's collider
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            // Check if characterHealth is not null before calling the method
+            if (playerMovement != null)
+            {
+                // Call the TakeDamage method on the characterHealth instance
+                playerMovement.TakeDamage(damage);
+            }
+        }
+    }
     #endregion
 }
