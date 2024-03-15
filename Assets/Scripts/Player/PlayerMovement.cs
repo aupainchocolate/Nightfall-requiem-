@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Get component references
         rb = GetComponent<Rigidbody2D>();
+        health = MaxHealth;
     }
 
     #endregion
@@ -41,8 +43,19 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+      
+        //Jumping
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+        //Horizontal movement
+        float moveInput = Input.GetAxis("Horizontal");
+        Vector2 moveVelocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        rb.velocity = moveVelocity;
+
         // Check if the player is grounded
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+      isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         // Jumping
         if (Input.GetKeyDown(KeyCode.W) && isGrounded)
@@ -92,5 +105,27 @@ public class PlayerMovement : MonoBehaviour
         );
     }
 
+    #endregion
+
+    #region PlayerHealth
+   
+    //keeps track of player's current health
+    public int health;
+
+    // How much health you have when you have full health
+    public int MaxHealth = 10;
+
+    // Start is called before the first frame update
+
+
+    //Will be called everytime player takes damage
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+        if (health < 0)
+        {
+            Destroy(gameObject);
+        }
+    }
     #endregion
 }
