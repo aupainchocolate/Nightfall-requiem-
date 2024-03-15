@@ -31,7 +31,12 @@ public class PlayerCombat : MonoBehaviour
         // Damage enemies
         foreach(Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<EnemyScript>().TakeDamage(attackDamage);
+            var enemyScript = enemy.GetComponent<EnemyScript>();
+            if(enemyScript != null )
+            {
+                       enemyScript.TakeDamage(attackDamage);
+            }
+       
             Debug.Log("Hit" + enemy.name);
 
             //EnemyScript har döpts om till EnemyMovement
