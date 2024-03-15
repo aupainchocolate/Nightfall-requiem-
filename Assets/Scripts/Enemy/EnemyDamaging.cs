@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyDamaging : MonoBehaviour
 {
     //lets the damaging script know where to find the script in unity
-    public CharacterHealth characterHealth;
+    public PlayerHealthController characterHealth;
 
     //allows us to set different values to each monster
     public int damage = 2;
