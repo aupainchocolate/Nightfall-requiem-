@@ -17,6 +17,7 @@ public class EnemyScript : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("AJ");
         currentHealth -= damage;
 
         animator.SetTrigger("Hurt");
@@ -35,6 +36,8 @@ public class EnemyScript : MonoBehaviour
 
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
+
+        Destroy(gameObject);
 
     }
 
