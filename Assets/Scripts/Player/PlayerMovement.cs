@@ -43,12 +43,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-      
-        //Jumping
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        // Jumping
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
+
         //Horizontal movement
         float moveInput = Input.GetAxis("Horizontal");
         Vector2 moveVelocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
@@ -56,12 +56,6 @@ public class PlayerMovement : MonoBehaviour
 
         // Check if the player is grounded
       isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-        // Jumping
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
 
         // Detect and store horizontal player input   
         playerInput = Input.GetAxisRaw("Horizontal");
