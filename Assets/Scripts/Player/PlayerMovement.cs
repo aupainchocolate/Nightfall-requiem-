@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 100f;
 
     private Rigidbody2D rb;
-    [SerializeField] bool isGrounded;
+    private bool isGrounded;
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
@@ -60,13 +60,14 @@ public class PlayerMovement : MonoBehaviour
         // Jumping
         if (Input.GetKeyDown(KeyCode.W) && isGrounded)
         {
-            Debug.Log("Should be jumping, try setting jumpforce higher or gravity lower?");
-            rb.AddForce(transform.up * jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
+
+        // Detect and store horizontal player input   
+        playerInput = Input.GetAxisRaw("Horizontal");
 
         // NB: Here, you might want to set the player's animation,
         // e.g. idle or walking
-        playerInput = Input.GetAxisRaw("Horizontal");
 
         // Swap the player sprite scale to face the movement direction
         SwapSprite();

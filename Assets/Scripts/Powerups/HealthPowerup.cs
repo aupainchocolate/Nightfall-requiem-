@@ -10,6 +10,8 @@ public class HealthPowerup : PowerupEffect
     public override void Apply(GameObject target)
     {
         int healthToAdd = (int)amount;
+        target.GetComponent<PlayerHealthController>().healthInitial += healthToAdd;
         target.GetComponent<PlayerMovement>().health += healthToAdd;
     }
 }
+    
