@@ -10,7 +10,7 @@ public class PlayerCombat : MonoBehaviour
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayer;
-    public int attackDamage= 40;
+    public int attackDamage= 50;
 
     void Update()
     {
@@ -22,8 +22,9 @@ public class PlayerCombat : MonoBehaviour
 
     void Attack()
     {
+        Debug.Log("i attack funk");
         // Play an attack animation
-        animator.SetTrigger("Attack");
+        animator.SetTrigger("Player");
 
         // Detect enemies in range of attack
        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
@@ -31,11 +32,13 @@ public class PlayerCombat : MonoBehaviour
         // Damage enemies
         foreach(Collider2D enemy in hitEnemies)
         {
-            var enemyScript = enemy.GetComponent<EnemyScript>();
+            var enemyScript = enemy.gameObject.GetComponent<EnemyScript>();
             if(enemyScript != null )
             {
-                       enemyScript.TakeDamage(attackDamage);
+                Debug.Log(enemy.gameObject.name);
+                enemyScript.TakeDamage(attackDamage);
             }
+            else { Debug.Log("ingen fiende"); }
        
             Debug.Log("Hit" + enemy.name);
 
