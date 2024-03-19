@@ -43,10 +43,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+
         // Jumping
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            Debug.Log("Jump");
         }
 
         //Horizontal movement
@@ -96,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
         // Move the player horizontally
         rb.velocity = new Vector2(
             playerInput * speed * Time.fixedDeltaTime,
-            0
+            rb.velocity.y
         );
     }
 
